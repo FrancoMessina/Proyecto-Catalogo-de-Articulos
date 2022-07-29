@@ -18,7 +18,7 @@ namespace ProyectoWebCatalogos
             {
                 if (!IsPostBack)
                 {
-                    
+
                     this.marcaNegocio = new MarcaNegocio();
                     this.categoriaNegocio = new CategoriaNegocio();
                     List<Marca> listaMarcas = marcaNegocio.Listar();
@@ -31,9 +31,21 @@ namespace ProyectoWebCatalogos
                     this.ddlCategorias.DataTextField = "Descripcion";
                     this.ddlCategorias.DataValueField = "Id";
                     this.ddlCategorias.DataBind();
-                    if (Request.QueryString["Id"] != null)
+                    //Config si estamos modificando
+                    string id = Request.QueryString["Id"] != null ? Request.QueryString["Id"].ToString() : string.Empty;
+                    if (!string.IsNullOrEmpty(id))
                     {
-
+                        //Pre cargar datos
+                        ArticuloNegocio articuloNegocio = new ArticuloNegocio();
+                        Articulo articuloRecibido = articuloNegocio.BuscarArticuloSP(int.Parse(id));
+                        txtNombre.Text = articuloRecibido.Nombre;
+                        txtCodigo.Text = articuloRecibido.Codigo;
+                        txtImagen.Text = articuloRecibido.UrlImagen;
+                        txtPrecio.Text = articuloRecibido.Precio.ToString();
+                        txtDescripcion.Text = articuloRecibido.Descripcion;
+                        this.CargarImagen(articuloRecibido.UrlImagen);
+                        this.ddlCategorias.SelectedValue = articuloRecibido.Categoria.Id.ToString();
+                        this.ddlMarcas.SelectedValue = articuloRecibido.Marca.Id.ToString();
                     }
                 }
             }
@@ -74,20 +86,30 @@ namespace ProyectoWebCatalogos
         {
             try
             {
-                    Articulo nuevo = new Articulo();
-                    ArticuloNegocio articuloNegocio = new ArticuloNegocio();
-                    nuevo.Codigo = txtCodigo.Text;
-                    nuevo.Nombre = txtNombre.Text;
-                    nuevo.Descripcion = txtDescripcion.Text;
-                    nuevo.UrlImagen = txtImagen.Text;
-                    nuevo.Precio = decimal.Parse(txtPrecio.Text);
-                    nuevo.Marca = new Marca();
-                    nuevo.Marca.Id = int.Parse(ddlMarcas.SelectedValue);
-                    nuevo.Categoria = new Categoria();
-                    nuevo.Categoria.Id = int.Parse(ddlCategorias.SelectedValue);
-                    articuloNegocio.AgregarArticuloSP(nuevo);
-                    Response.Redirect("ArticulosLista.aspx",false);
-              
+                Articulo articulo = new Articulo();
+                ArticuloNegocio articuloNegocio = new ArticuloNegocio();
+                string id = Request.QueryString["Id"] != null ? Request.QueryString["Id"].ToString() : string.Empty;
+                articulo.Codigo = txtCodigo.Text;
+                articulo.Nombre = txtNombre.Text;
+                articulo.Descripcion = txtDescripcion.Text;
+                articulo.UrlImagen = txtImagen.Text;
+                articulo.Precio = decimal.Parse(txtPrecio.Text);
+                articulo.Marca = new Marca();
+                articulo.Marca.Id = int.Parse(ddlMarcas.SelectedValue);
+                articulo.Categoria = new Categoria();
+                articulo.Categoria.Id = int.Parse(ddlCategorias.SelectedValue);
+                articuloNegocio.AgregarArticuloSP(articulo);
+                if (!string.IsNullOrEmpty(id))
+                {
+                    articulo.Id = int.Parse(id);
+                    articuloNegocio.ModificarArticuloSP(articulo);
+                }
+                else
+                    articuloNegocio.AgregarArticuloSP(articulo);
+
+                
+                Response.Redirect("ArticulosLista.aspx", false);
+
             }
             catch (Exception ex)
             {
