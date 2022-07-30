@@ -4,6 +4,9 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
+    <asp:Label ID="lblFiltro" runat="server" Text="Filtrar por Nombre">
+        <asp:TextBox ID="txtFiltro" runat="server" AutoPostBack="true" ></asp:TextBox>
+    </asp:Label>
     <div class="row justify-content-center">
         <div class="row g-2">
             <div class="col-6">
@@ -44,7 +47,7 @@
                             <label for="txtImagen">Imagen</label>
                         </div>
                         <asp:Image ImageUrl="https://grupoact.com.ar/wp-content/uploads/2020/04/placeholder.png"
-                            runat="server" ID="imgArticulo" Width="65%" />
+                            runat="server" ID="imgArticulo" Width="60%" Height="250px" />
                     </ContentTemplate>
                 </asp:UpdatePanel>
             </div>
@@ -53,7 +56,8 @@
     <div class="container p-3">
         <div class="col-md-12 text-center">
             <asp:Button ID="btnAgregar" runat="server" Text="Agregar" CssClass="btn btn-primary btn-lg" OnClick="btnAgregar_Click"/>
-            <asp:Button ID="btnCancelar" runat="server" Text="Cancelar" CssClass="btn btn-warning btn-lg" />
+            <asp:Button ID="btnCancelar" runat="server" Text="Cancelar" CssClass="btn btn-warning btn-lg" OnClick="btnCancelar_Click" />
+            <asp:Button ID="btnEliminar" runat="server" Text="Eliminar" CssClass="btn btn-danger btn-lg" OnClick="btnEliminar_Click"/>
         </div>
     </div>
 

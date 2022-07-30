@@ -31,6 +31,7 @@ namespace ProyectoWebCatalogos
                     this.ddlCategorias.DataTextField = "Descripcion";
                     this.ddlCategorias.DataValueField = "Id";
                     this.ddlCategorias.DataBind();
+
                     //Config si estamos modificando
                     string id = Request.QueryString["Id"] != null ? Request.QueryString["Id"].ToString() : string.Empty;
                     if (!string.IsNullOrEmpty(id))
@@ -46,6 +47,13 @@ namespace ProyectoWebCatalogos
                         this.CargarImagen(articuloRecibido.UrlImagen);
                         this.ddlCategorias.SelectedValue = articuloRecibido.Categoria.Id.ToString();
                         this.ddlMarcas.SelectedValue = articuloRecibido.Marca.Id.ToString();
+                        this.btnAgregar.Text = "Modificar";
+                        this.btnEliminar.Visible = true;
+                    }
+                    else
+                    {
+                        this.btnAgregar.Text = "Agregar";
+                        this.btnEliminar.Visible = false;
                     }
                 }
             }
@@ -98,7 +106,6 @@ namespace ProyectoWebCatalogos
                 articulo.Marca.Id = int.Parse(ddlMarcas.SelectedValue);
                 articulo.Categoria = new Categoria();
                 articulo.Categoria.Id = int.Parse(ddlCategorias.SelectedValue);
-                articuloNegocio.AgregarArticuloSP(articulo);
                 if (!string.IsNullOrEmpty(id))
                 {
                     articulo.Id = int.Parse(id);
@@ -107,7 +114,7 @@ namespace ProyectoWebCatalogos
                 else
                     articuloNegocio.AgregarArticuloSP(articulo);
 
-                
+
                 Response.Redirect("ArticulosLista.aspx", false);
 
             }
@@ -116,6 +123,39 @@ namespace ProyectoWebCatalogos
                 Session.Add("Error", ex);
                 throw;
                 //Redireccion a página de error.
+            }
+        }
+
+        protected void btnCancelar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Response.Redirect("ArticulosLista.aspx", false);
+            }
+            catch (Exception ex)
+            {
+                Session.Add("Error", ex);
+                throw;
+                //Redireccion a página de error.
+            }
+        }
+
+        protected void btnEliminar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string id = Request.QueryString["Id"] != null ? Request.QueryString["Id"].ToString() : string.Empty;
+                if (!string.IsNullOrEmpty(id))
+                {
+                    ArticuloNegocio articuloNegocio = new ArticuloNegocio();
+                    articuloNegocio.EliminarArticuloSP(int.Parse(id));
+                    Response.Redirect("ArticulosLista.aspx", false);
+                }
+            }
+            catch (Exception ex)
+            {
+                Session.Add("Error", ex);
+                throw;
             }
         }
     }
