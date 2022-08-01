@@ -5,9 +5,9 @@ VisualStudioVersion = 17.2.32505.173
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProyectoWebCatalogos", "ProyectoWebCatalogos\ProyectoWebCatalogos.csproj", "{9C96D2C7-DE51-48A0-9BF3-B21F2B740F8C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dominio", "..\TPFinalNivel2_Messina\TPFinalNivel2_Messina\Dominio\Dominio.csproj", "{EC45E7F6-B599-4355-A6F1-525292F8990F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dominio", "ProyectoWebCatalogos\Dominio\Dominio.csproj", "{EC45E7F6-B599-4355-A6F1-525292F8990F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Negocio", "..\TPFinalNivel2_Messina\TPFinalNivel2_Messina\Negocio\Negocio.csproj", "{46F6A405-3E22-46E9-9C53-D639BB733D70}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Negocio", "ProyectoWebCatalogos\Negocio\Negocio.csproj", "{46F6A405-3E22-46E9-9C53-D639BB733D70}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

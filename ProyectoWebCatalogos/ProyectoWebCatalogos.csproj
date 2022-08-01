@@ -130,16 +130,6 @@
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\TPFinalNivel2_Messina\TPFinalNivel2_Messina\Dominio\Dominio.csproj">
-      <Project>{ec45e7f6-b599-4355-a6f1-525292f8990f}</Project>
-      <Name>Dominio</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\..\TPFinalNivel2_Messina\TPFinalNivel2_Messina\Negocio\Negocio.csproj">
-      <Project>{46f6a405-3e22-46e9-9c53-d639bb733d70}</Project>
-      <Name>Negocio</Name>
-    </ProjectReference>
-  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
